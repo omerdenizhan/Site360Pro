@@ -69,49 +69,49 @@ Proje, site yöneticilerinin aidat takiplerini kolaylaştırmak, ödemeleri izle
 ### 1. Dashboard
 Ana ekranda:
 
-- seçili site ve blok bazlı görünüm
-- toplam daire durumu
-- aidat özetleri
-- koleksiyon oranı
-- günün ödemeleri
-- son ödemeler
-- giderler ve duyurular
+- Seçili site ve blok bazlı görünüm
+- Toplam daire durumu
+- Aidat özetleri
+- Koleksiyon oranı
+- Günün ödemeleri
+- Son ödemeler
+- Giderler ve duyurular
 
 ### 2. Site ve Yapı Yönetimi
-- site ekleme/düzenleme
-- blok ekleme/düzenleme
-- apartman yapısı yönetimi
+- Site ekleme/düzenleme
+- Blok ekleme/düzenleme
+- Apartman yapısı yönetimi
 
 ### 3. Konut / Sakin Yönetimi
-- daire bilgileri
-- aktif sakin eşleştirmeleri
-- iletişim bilgileri
+- Daire bilgileri
+- Aktif sakin eşleştirmeleri
+- İletişim bilgileri
 
 ### 4. Aidatlar ve Ödemeler
-- dönemsel aidat oluşturma
-- ödeme kaydı ekleme
-- kısmi ödemeler
-- fatura/fiş görünümü ve PDF üretimi
+- Dönemsel aidat oluşturma
+- Ödeme kaydı ekleme
+- Kısmi ödemeler
+- Fatura/fiş görünümü ve PDF üretimi
 
 ### 5. Gider Yönetimi
-- elektrik, su, bakım, personel, temizlik vb. gider kayıtları
-- site bazlı toplam gider takibi
+- Elektrik, su, bakım, personel, temizlik vb. gider kayıtları
+- Site bazlı toplam gider takibi
 
 ### 6. Duyurular ve Raporlar
-- site duyuruları
-- e-posta gönderimi
-- yöneticiler için rapor sayfası
-- mülk sahibi özel rapor linkleri
+- Site duyuruları
+- E-posta gönderimi
+- Yöneticiler için rapor sayfası
+- Mülk sahibi özel rapor linkleri
 
 ### 7. Entegrasyonlar
 - Vakıfbank hesap hareketleri için yapı mevcut
-- manuel eşleştirme akışı ve finansal işlem bağlama
-- otomatik senkronizasyon komutları
+- Manuel eşleştirme akışı ve finansal işlem bağlama
+- Otomatik senkronizasyon komutları
 
 ### 8. Ayarlar
-- genel sistem ayarları
+- Genel sistem ayarları
 - Telegram bot ve kanal ayarları
-- public URL / destek e-postası
+- Public URL / destek e-postası
 
 ## Gereksinimler
 
