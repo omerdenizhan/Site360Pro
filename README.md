@@ -1,349 +1,172 @@
-# Site360Pro
+# 🏢 Site ve Apartman Yönetim Sistemi (Laravel)
 
-Site360Pro, apartman ve site yönetimi için geliştirilmiş Laravel tabanlı bir yönetim panelidir. Site, blok, daire, sakin, aidat, ödeme, gider, duyuru ve banka entegrasyonu işlemlerini tek bir merkezden yönetmeye olanak tanır.
+Bu proje; birden fazla site/blok yapısını, daire sakinlerini, aidat ve finansal gelir/gider takiplerini ve banka entegrasyonlarını tek bir platform üzerinden yönetmek amacıyla geliştirilmiş kapsamlı bir **Laravel tabanlı Site Yönetim Otomasyonudur**.
 
-Proje, site yöneticilerinin aidat takiplerini kolaylaştırmak, ödemeleri izlemek, gelir-gider dengesini görmek ve sahiplere özel raporlar sunmak amacıyla tasarlanmıştır.
+---
 
-## Özellikler
+## 🚀 Proje Özellikleri
 
-- Çoklu site yönetimi
-- Blok ve daire yapısı
-- Sakin / oturan bilgileri takibi
-- Aidat oluşturma ve ödeme takibi
-- Kısmi/full/ödenmemiş aidat durumu
-- Gelir ve gider takibi
-- Duyuru yayınlama ve e-posta gönderimi
-- Telegram bildirimleri
-- Mülkiyet sahipleri için özel rapor bağlantıları
-- Vakıfbank banka hareketi entegrasyonu altyapısı
-- PDF aidat/fiş çıktıları
-- Yönetici işlemleri için audit log takibi
-- Modern UI (Tabler + Vite + Tailwind)
+### 1. 🏢 Site ve Blok Yönetimi
+* **Çoklu Site & Blok Yapısı:** Farklı siteleri, bu sitelere bağlı blokları (`BuildingBlock`) ve bağımsız bölümleri/daireleri (`Apartment`) esnek bir şekilde tanımlama.
+* **Daire Yönetimi:** Dairelerin kat numarası, kapı numarası, doluluk durumu ve ait olduğu site/blok bazlı eşleştirilmesi.
 
-## Teknoloji Yığını
+### 2. 👥 Sakin & Kat Maliki Yönetimi
+* **Sakin Prototipi (`Resident`):** Daire sakinlerinin (Kiracı / Ev Sahibi) kişisel bilgileri, iletişim bilgileri ve daire ilişkileri.
+* **Kat Maliki Özel Raporlama:** Mülk sahiplerine özel üretilen erişim bağlantıları (`OwnerReportLink`) ile mülk sahiplerinin kendi finansal durumlarını anlık inceleyebilmesi.
 
-- PHP 8.3
-- Laravel 13
-- SQLite varsayılan veritabanı desteği
-- Vite + Tailwind CSS
-- Composer
-- NPM
-- Dompdf (PDF oluşturma)
+### 3. 💰 Finansal Yönetim & Muhasebe
+* **Aidat Takibi (`Due`):** Daire bazlı tanımlanan rutin veya dönemsel aidatlar.
+* **Gelirler (`Income`) & Giderler (`Expense`):** Kategori bazlı gelir/gider kayıtları, fatura/makbuz takipleri.
+* **Tahsilat & Ödemeler (`Payment`):** Yapılan tahsilatların sisteme işlenmesi, makbuz/makbuz PDF çıktısı alma.
 
-## Proje Yapısı
+### 4. 🏦 Banka Entegrasyonu (VakıfBank)
+* **Otomatik Hesap Hareketleri Senkronizasyonu (`VakifbankSyncService`):** Banka hesap hareketlerini otomatik çekerek ödemelerle eşleştirme.
+* **Banka Hareket Kayıtları (`BankIntegration` & `BankTransaction`):** Gelen havale/EFT işlemlerini otomatik analiz etme ve ilgili daire/sakin ile ilişkilendirme.
+
+### 5. 📢 Duyurular & İletişim
+* **Sistem İçi Duyuru Yayını (`Announcement`):** Tüm sakinlere veya belirli blok/siteye yönelik duyurular oluşturma ve e-posta ile toplu duyuru iletimi.
+
+### 6. 🛠️ Güvenlik & Denetim (Audit Logs)
+* **Sistem Denetim Kayıtları (`AuditLog`):** Yapılan kritik işlemlerin (Ekleme, Güncelleme, Silme) kimin tarafından, ne zaman gerçekleştirildiğini kayıt altına alma.
+* **Rol & Yetkilendirme (`AuthorityController`):** Kullanıcı rolleri ve yetki sınırlandırmaları.
+
+---
+
+## 🛠️ Teknik Özellikler & Teknoloji Yığını
+
+* **Backend Framework:** PHP 8.2+ / Laravel 11.x
+* **Frontend / UI:** Blade Templating, Tailwind CSS, Vite
+* **Veritabanı:** MySQL / SQLite
+* **İkon / UI Bileşenleri:** Tabler Icons
+* **PDF Oluşturucu:** DomPDF / Laravel-PDF Entegrasyonu (Makbuz ve Rapor çıktıları için)
+* **Servis Yapısı:** Servis odaklı mimari (Örn: `VakifbankSyncService`)
+
+---
+
+## 📂 Proje Dizin Yapısı
 
 ```text
-.
 ├── app/
-│   ├── Http/Controllers/
-│   ├── Models/
-│   ├── Providers/
-│   └── Services/
-├── bootstrap/
-├── config/
+│   ├── Http/Controllers/       # Controller sınıfları (Site, Resident, Payment, Due vb.)
+│   ├── Models/                 # Eloquent Veritabanı Modelleri
+│   ├── Services/               # İş mantığı servisleri (VakifbankSyncService vb.)
+│   └── Providers/              # Servis Sağlayıcıları
+├── config/                     # Uygulama ve entegrasyon yapılandırmaları
 ├── database/
-│   ├── migrations/
-│   ├── seeders/
-│   └── json/
-├── lang/
-├── public/
+│   ├── migrations/             # Veritabanı tablo şemaları
+│   ├── seeders/                # Örnek veri doldurucular
+│   └── database.sqlite         # Varsayılan SQLite veritabanı (Opsiyonel)
+├── public/                     # Derlenmiş CSS/JS assetleri ve index.php
 ├── resources/
-│   ├── css/
-│   ├── js/
-│   └── views/
-├── routes/
-├── storage/
-├── tests/
-├── artisan
-├── composer.json
-├── package.json
-├── phpunit.xml
-├── vite.config.js
-├── .env
-├── .gitignore
-└── README.md
+│   ├── views/                  # Blade şablonları (Site, Daire, Aidat, Ödeme vb.)
+│   ├── css/                    # Tailwind / Uygulama CSS dosyaları
+│   └── js/                     # JavaScript modülleri
+└── routes/                     # Web ve konsol rotaları
 ```
 
-## Ana Modüller
+---
 
-### 1. Dashboard
-Ana ekranda:
+## ⚙️ Kurulum Aşamaları
 
-- Seçili site ve blok bazlı görünüm
-- Toplam daire durumu
-- Aidat özetleri
-- Koleksiyon oranı
-- Günün ödemeleri
-- Son ödemeler
-- Giderler ve duyurular
+Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları sırasıyla takip edebilirsiniz:
 
-### 2. Site ve Yapı Yönetimi
-- Site ekleme/düzenleme
-- Blok ekleme/düzenleme
-- Apartman yapısı yönetimi
+### 1. Gereksinimler
+* **PHP:** >= 8.2
+* **Composer:** >= 2.0
+* **Node.js & NPM:** >= 18.x
+* **Veritabanı:** MySQL / PostgreSQL veya SQLite
 
-### 3. Konut / Sakin Yönetimi
-- Daire bilgileri
-- Aktif sakin eşleştirmeleri
-- İletişim bilgileri
+---
 
-### 4. Aidatlar ve Ödemeler
-- Dönemsel aidat oluşturma
-- Ödeme kaydı ekleme
-- Kısmi ödemeler
-- Fatura/fiş görünümü ve PDF üretimi
-
-### 5. Gider Yönetimi
-- Elektrik, su, bakım, personel, temizlik vb. gider kayıtları
-- Site bazlı toplam gider takibi
-
-### 6. Duyurular ve Raporlar
-- Site duyuruları
-- E-posta gönderimi
-- Yöneticiler için rapor sayfası
-- Mülk sahibi özel rapor linkleri
-
-### 7. Entegrasyonlar
-- Vakıfbank hesap hareketleri için yapı mevcut
-- Manuel eşleştirme akışı ve finansal işlem bağlama
-- Otomatik senkronizasyon komutları
-
-### 8. Ayarlar
-- Genel sistem ayarları
-- Telegram bot ve kanal ayarları
-- Public URL / destek e-postası
-
-## Gereksinimler
-
-Aşağıdaki araçların sisteminizde kurulu olması gerekir:
-
-- PHP 8.3+
-- Composer
-- Node.js 18+
-- npm
-- Git
-
-## Kurulum
-
-1. Projeyi klonlayın:
-
+### 2. Depoyu Klonlayın ve Klasöre Geçin
 ```bash
-git clone <repository-url>
-cd Site360Pro
+git clone <repo-url>
+cd <proje-klasor-adi>
 ```
 
-2. PHP bağımlılıklarını kurun:
+---
 
+### 3. PHP Bağımlılıklarını Yükleyin
 ```bash
 composer install
 ```
 
-3. JavaScript bağımlılıklarını kurun:
+---
 
+### 4. Çevre (.env) Dosyasını Hazırlayın
+`.env.example` dosyasını kopyalayarak `.env` dosyanızı oluşturun:
 ```bash
-npm install
+cp .env.example .env
 ```
-
-4. Ortam değişkenlerini oluşturup düzenleyin:
-
-Proje kökünde mevcut `.env` dosyası varsa kullanılabilir. Yoksa örnek bir dosya oluşturup gerekli değerleri ekleyin.
-
-Örnek temel ayarlar:
-
-```env
-APP_NAME=Site360Pro
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-
-DB_CONNECTION=sqlite
-DB_DATABASE=/absolute/path/to/your/project/database/database.sqlite
-
-CACHE_DRIVER=file
-SESSION_DRIVER=file
-QUEUE_CONNECTION=database
-MAIL_MAILER=log
-```
-
-> Not: Projede varsayılan veritabanı konfigürasyonu SQLite olarak ayarlanmıştır. Uygulamanın çalışması için SQLite dosya yolunun doğru olması gerekir.
-
-5. Uygulama anahtarını oluşturun:
-
+Uygulama anahtarını (APP_KEY) oluşturun:
 ```bash
 php artisan key:generate
 ```
 
-6. Veritabanını oluşturup migrate edin:
+---
 
-```bash
-php artisan migrate
+### 5. Veritabanı Yapılandırması
+
+`.env` dosyanızda veritabanı ayarlarınızı güncelleyin. 
+
+**SQLite kullanmak isterseniz:**
+```env
+DB_CONNECTION=sqlite
+# DB_DATABASE ayarını kaldırabilir veya varsayılan bırakabilirsiniz.
 ```
 
-7. Gerekirse örnek veriler eklemek için seed çalıştırabilirsiniz:
-
-```bash
-php artisan db:seed
+**MySQL kullanmak isterseniz:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=site_yonetimi
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-8. Frontend kaynaklarını derleyin:
+---
 
+### 6. Veritabanı Migrasyonlarını Çalıştırın
+Tabloları ve (varsa) başlangıç verilerini veritabanına yükleyin:
 ```bash
+php artisan migrate --seed
+```
+
+---
+
+### 7. Frontend Bağımlılıklarını Yükleyin ve Derleyin
+```bash
+npm install
 npm run build
+# Geliştirme ortamı için canlı derleme yapacaksanız:
+# npm run dev
 ```
 
-## Çalıştırma
+---
 
-Geliştirme sunucusunu başlatmak için:
-
+### 8. Uygulamayı Başlatın
+Laravel dahili geliştirme sunucusunu çalıştırın:
 ```bash
 php artisan serve
 ```
 
-Tarayıcıda şu URL'yi açın:
+Tarayıcınızdan `http://127.0.0.1:8000` adresine giderek uygulamaya erişebilirsiniz.
 
-```text
-http://localhost:8000
-```
+---
 
-### Vite geliştirme sunucusu
+## 🔌 Banka Entegrasyon Yapılandırması
 
-Frontend değişikliklerini izlemek için:
+VakıfBank hesap hareketleri entegrasyonunu aktif etmek için aşağıdaki adımları tamamlayın:
 
-```bash
-npm run dev
-```
+1. `config/services.php` veya `.env` içerisine VakıfBank API/Servis erişim bilgilerini ekleyin.
+2. Servisi manuel tetiklemek için ilgili Controller / Cron Job yapılandırmasını kullanın:
+   ```bash
+   php artisan schedule:run
+   ```
 
-### Tüm geliştirme araçlarını birlikte çalıştırma
+---
 
-Proje `composer.json` içinde tanımlı `dev` betiği kullanılır:
+## 📄 Lisans
 
-```bash
-composer run dev
-```
-
-Bu komut şunları birlikte başlatır:
-
-- Laravel sunucusu
-- queue listener
-- log izleyici
-- Vite geliştirme sunucusu
-
-## Testler
-
-Projede PHPUnit kullanılmaktadır. Testleri çalıştırmak için:
-
-```bash
-php artisan test
-```
-
-## Önemli Artisan Komutları
-
-### Banka senkronizasyonu
-
-Vakıfbank entegrasyonu için manuel tetikleme:
-
-```bash
-php artisan bank:sync-vakifbank --site_id=1
-```
-
-### Zamanlanmış görevler
-
-Zamanlayıcı, her dakika çalışacak şekilde konfigüre edilmiştir:
-
-```bash
-php artisan schedule:run
-```
-
-## Telegram ve Genel Ayarlar
-
-Yönetim panelinden şu ayarlar düzenlenebilir:
-
-- Telegram bot token
-- chat ID
-- bildirim aktif/pasif
-- uygulama genel URL
-- destek e-posta adresi
-
-Bu ayarlar `SystemSetting` modeline kaydedilir ve uygulama içinde merkezi şekilde okunur.
-
-## Vakıfbank Entegrasyonu
-
-Proje içinde Vakıfbank için yapı mevcuttur:
-
-- banka entegrasyonu kaydı
-- hareket listesi
-- eşleştirme ve manuel onay akışı
-- otomatik senkronizasyon komudu
-
-Şu anki `VakifbankSyncService` sürümü, canlı SOAP çağrısı yerine hazırlık ve validasyon mantığı içerir; gerçek banka SOAP entegrasyonu için servis tarafının tamamlanması gerekir.
-
-## Güvenlik ve Audit Log
-
-Uygulama işlemler sırasında aşağıdaki verileri izler:
-
-- kullanıcı kimliği
-- eylem adı
-- tablo adı
-- IP adresi
-- açıklama
-
-Bu sayede yöneticilerin hangi işlemleri yaptığını takip etmek mümkündür.
-
-## Kullanım Akışı
-
-1. Site oluşturulur.
-2. Blok ve daire yapısı tanımlanır.
-3. Sakinler kaydedilir.
-4. Aidat dönemleri oluşturulur.
-5. Ödemeler işlenir.
-6. Giderler kaydedilir.
-7. Duyurular yayınlanır.
-8. Raporlar ve PDF çıktıları alınır.
-9. Telegram veya banka işlemleri için entegrasyonlar aktif hale getirilir.
-
-## Sorun Giderme
-
-### SQLite hatası alıyorum
-
-- `DB_DATABASE` değerinin doğru dosya yolunu gösterdiğinden emin olun.
-- Veritabanı dosyasının yazılabilir olduğundan emin olun.
-
-### Composer bağımlılık hatası
-
-```bash
-composer clear-cache
-composer install
-```
-
-### Node bağımlılık hatası
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### Uygulama çalışmıyor
-
-```bash
-php artisan cache:clear
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
-```
-
-## Katkıda Bulunma
-
-1. Depoyu fork edin.
-2. Yeni branch oluşturun.
-3. Değişikliklerinizi yapın.
-4. Testleri çalıştırın.
-5. Pull request oluşturun.
-
-## Lisans
-
-Bu proje MIT lisansı altında sunulmaktadır.
-
-## Not
-
-Bu uygulama, yoğun olarak site ve apartman yönetimi için tasarlanmıştır. Özellikle aidat toplama, muhasebe benzeri kontrol ve bakım/operasyon takibi için uygun bir yönetim arayüzü sağlar. Gerçek banka SOAP uç noktasının bağlanması için ek güvenlik ve üretim parametreleri gerekecektir.
+Bu proje özel mülkiyettedir / açık kaynak lisansı detayları için `LICENSE` dosyasına göz atabilirsiniz.
