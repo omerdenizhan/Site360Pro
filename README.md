@@ -252,6 +252,16 @@ php artisan config:cache && php artisan route:cache && php artisan view:cache
 | Geri yükleme "geçerli değil" diyor | Yalnızca panelden alınan **JSON** yedeği yüklenebilir. |
 | Hesap kilitlendi | 15 dakika bekleyin veya Şifremi Unuttum akışıyla şifreyi sıfırlayın (kilit kalkar). |
 
+## 📌 İlk Kurulum Kasa Devri
+
+Site ekleme/düzenleme formunda **İlk Kurulum Kasa Devri (₺)** ve **Devir Tarihi** (zorunlu) alanları bulunur.
+
+- Kasa hesabı, devir tarihinin ait olduğu ayın başından itibaren yapılır; öncesindeki kayıtlar kasaya dahil edilmez.
+- Kasa = Devir + Tahsilat + Gelir − Gider (devir ayından itibaren kümülatif).
+- Ana panel "Kasa Bakiyesi" ve Raporlar "Dönem Geliri / Dönem Sonu Kasa" bu değeri baz alır.
+- Devir tarihinden önceki aylarda kasa 0 gösterilir.
+- Kurulum: `php artisan migrate` (sites tablosuna `opening_balance`, `opening_balance_date` eklenir). Mevcut sitelerde alanlar boştur; sitenin bir sonraki düzenlemesinde doldurulması gerekir, doldurulana kadar eski davranış (tüm kayıtlar) sürer.
+
 ## 📄 Lisans
 
 Bu proje [Unlicense](https://unlicense.org/) ile kamu malı olarak sunulmuştur; dilediğiniz gibi kullanabilir, değiştirebilir ve dağıtabilirsiniz. Ayrıntılar için [`LICENSE`](LICENSE) dosyasına bakın.
@@ -264,13 +274,3 @@ Bu proje [Unlicense](https://unlicense.org/) ile kamu malı olarak sunulmuştur;
 <p align="center">❤️ Made with Love ❤️</p>
 
 ---
-
-## İlk Kurulum Kasa Devri
-
-Site ekleme/düzenleme formunda **İlk Kurulum Kasa Devri (₺)** ve **Devir Tarihi** (zorunlu) alanları bulunur.
-
-- Kasa hesabı, devir tarihinin ait olduğu ayın başından itibaren yapılır; öncesindeki kayıtlar kasaya dahil edilmez.
-- Kasa = Devir + Tahsilat + Gelir − Gider (devir ayından itibaren kümülatif).
-- Ana panel "Kasa Bakiyesi" ve Raporlar "Dönem Geliri / Dönem Sonu Kasa" bu değeri baz alır.
-- Devir tarihinden önceki aylarda kasa 0 gösterilir.
-- Kurulum: `php artisan migrate` (sites tablosuna `opening_balance`, `opening_balance_date` eklenir). Mevcut sitelerde alanlar boştur; sitenin bir sonraki düzenlemesinde doldurulması gerekir, doldurulana kadar eski davranış (tüm kayıtlar) sürer.
