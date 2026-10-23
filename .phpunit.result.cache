@@ -1,0 +1,11 @@
+{
+    "version":2,
+    "defects":
+    {
+        "Tests\\Feature\\ExampleTest::test_authenticated_user_can_view_dashboard":8
+    },
+    "times":{
+        "Tests\\Unit\\ExampleTest::test_that_true_is_true":0.001,
+        "Tests\\Feature\\DownloadTest::test_download_password_form_is_public":0.053,"Tests\\Feature\\DownloadTest::test_wrong_password_does_not_download_archive":0.017,"Tests\\Feature\\DownloadTest::test_correct_password_downloads_archive":0.016,"Tests\\Feature\\ExampleTest::test_guest_is_redirected_to_login":0.004,"Tests\\Feature\\ExampleTest::test_authenticated_user_can_view_dashboard":0.888,"Tests\\Feature\\ThemeToggleTest::test_can_toggle_theme_to_dark":0.078,"Tests\\Feature\\ThemeToggleTest::test_can_toggle_theme_to_light":0.002,"Tests\\Feature\\ThemeToggleTest::test_theme_defaults_to_light_for_invalid_input":0.002,"Tests\\Feature\\ThemeToggleTest::test_login_page_renders_theme_toggle_button":0.329,"Tests\\Feature\\ThemeToggleTest::test_dashboard_renders_theme_toggle_button":0.051
+    }
+}
