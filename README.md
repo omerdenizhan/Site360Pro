@@ -252,7 +252,7 @@ php artisan config:cache && php artisan route:cache && php artisan view:cache
 | Geri yükleme "geçerli değil" diyor | Yalnızca panelden alınan **JSON** yedeği yüklenebilir. |
 | Hesap kilitlendi | 15 dakika bekleyin veya Şifremi Unuttum akışıyla şifreyi sıfırlayın (kilit kalkar). |
 
-## İlk Kurulum Kasa Devri
+## 📌 İlk Kurulum Kasa Devri
 
 Site ekleme/düzenleme formunda **İlk Kurulum Kasa Devri (₺)** ve **Devir Tarihi** (zorunlu) alanları bulunur.
 
